@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<script type="text/javascript" src="script.js"></script>
+
+	<link rel="stylesheet" type="text/css" href="style.css">
+
+	<title>Game Clicker</title>
+</head>
+<body onload="dados()">
+	<strong>I N V E N T Á R I O</strong>
+	<br>
+	Clicks: <span id="clicks"></span>
+	<br>
+	Click: <span id="click"></span>
+	<br>
+	Click Automático: <span id="clickAutomatico"></span>
+	<br>
+	<br>
+	<br>
+	<strong>L O J A</strong>
+	<br>
+	<table>
+		<tr>
+			<th>NOME</th>
+			<th>PREÇO</th>
+			<th>AÇÃO</th>
+		</tr>
+		<tr>
+			<td>click</td>
+			<td id="clickPreco"></td>
+			<td><button onclick="comprar('c')">COMPRAR</button></td>
+		</tr>
+		<tr>
+			<td>click automático</td>
+			<td id="clickAutomaticoPreco"></td>
+			<td><button onclick="comprar('ca')">COMPRAR</button></td>
+		</tr>
+	</table>
+</body>
+</html>
