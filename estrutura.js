@@ -5,7 +5,7 @@ class Item {
 	}
 }
 
-let loja = new Array();
+export let loja = new Array();
 
 loja.push(new Item({
 	nome: "click",
@@ -39,5 +39,3 @@ loja.push(new Item({
 		}
 	}
 }));
-
-export loja;
