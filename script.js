@@ -1,4 +1,4 @@
-import loja from "estrutura";
+import loja from "/estrutura";
 
 let Jogador = {
 	clicks: 0,
