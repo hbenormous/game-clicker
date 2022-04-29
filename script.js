@@ -1,53 +1,59 @@
-let Player = {
+import loja from "estrutura";
+
+let Jogador = {
 	clicks: 0,
 	click: 1,
 	clickPreco: 50,
 	clickAutomatico: 0,
 	clickAutomaticoPreco: 100,
-
 };
 
-function addClicks(){
-	if (Player.click >= 2) Player.clicks += Player.click;
-	else Player.clicks += 1;
+let Sistema = {
+	adicionarClicks: ()=>{
+		if (Jogador.click >= 2) Jogador.clicks += Jogador.click;
+		else Jogador.clicks += 1;
 
-	dados();
-}
+		Sistema.injetarElementos();
+	},
+	comprar: nomeDoItem=>{
+		for (let item of loja) {
+			item.nome == nomeDoItem ? item.funcao() : new Error();
+		}
+	},
+	injetarElementos: ()=>{
+		document.querySelector("#click").innerText = Jogador.click;
+		document.querySelector("#clickPreco").innerText = Jogador.clickPreco;
+		document.querySelector("#clicks").innerText = Jogador.clicks;
+		document.querySelector("#clickAutomatico").innerText = Jogador.clickAutomatico;
+		document.querySelector("#clickAutomaticoPreco").innerText = Jogador.clickAutomaticoPreco;
+	},
+	localStorage: {
+		salvar: ()=>{
+			localStorage.setItem("player", JSON.stringify(Jogador));
+		},
+		resetar: ()=>{
+			localStorage.removeItem("player");
 
-document.addEventListener("click", addClicks, false);
+			Jogador.clicks = -1;
+			Jogador.click = 1;
+			Jogador.clickPreco = 50;
+			Jogador.clickAutomatico = 0;
+			Jogador.clickAutomaticoPreco = 100;;
 
-function comprar(type){
-	if (type == "ca") {
-		if (Player.clicks >= Player.clickAutomaticoPreco) {
-			Player.clickAutomatico += 1;
-			Player.clickAutomaticoPreco += Player.clickAutomatico;
-			Player.clicks -= Player.clickAutomaticoPreco;
-
-			if (Player.clickAutomatico == 1) {
+			clearInterval(1);
+		},
+		recuperar: ()=>{
+			if (localStorage.getItem("player") != null) Jogador = JSON.parse(localStorage.getItem("player"));
+			if (Jogador.clickAutomatico >= 1) {
 				setInterval(()=>{
-					Player.clicks += Player.clickAutomatico;
-					dados();
+					Jogador.clicks += Jogador.clickAutomatico;
+					Sistema.injetarElementos();
 				}, 1000);
 			}
-
-			dados();
 		}
 	}
-	else if (type == "c") {
-		if (Player.clicks >= Player.clickPreco) {
-			Player.click += 1;
-			Player.clickPreco += Player.click;
-			Player.clicks -= Player.clickPreco;
+};
 
-			dados();
-		}
-	}
-}
+document.addEventListener("click", Sistema.adicionarClicks, false);
 
-function dados(){
-	document.querySelector("#click").innerText = Player.click;
-	document.querySelector("#clickPreco").innerText = Player.clickPreco;
-	document.querySelector("#clicks").innerText = Player.clicks;
-	document.querySelector("#clickAutomatico").innerText = Player.clickAutomatico;
-	document.querySelector("#clickAutomaticoPreco").innerText = Player.clickAutomaticoPreco;
-}
+Sistema.localStorage.recuperar();
