@@ -1,5 +1,3 @@
-import loja from "/estrutura";
-
 let Jogador = {
 	clicks: 0,
 	click: 1,
